@@ -4,7 +4,7 @@
       "id": 1,
       "config":{
         "version":"0.0.1",
-        "donladUrl":"www.baidu.com"
+        "downloadUrl":"www.baidu.com"
       }
     }
   ],
