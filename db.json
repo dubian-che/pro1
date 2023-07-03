@@ -2,7 +2,10 @@
   "posts": [
     {
       "id": 1,
-      "title": "hello"
+      "config":{
+        "version":"0.0.1",
+        "donladUrl":"www.baidu.com"
+      }
     }
   ],
   "profile": {
