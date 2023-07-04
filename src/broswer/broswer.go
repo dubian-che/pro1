@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/app"
+	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/layout"
 	"fyne.io/fyne/v2/theme"
 	"fyne.io/fyne/v2/widget"
@@ -13,6 +14,7 @@ import (
 )
 
 var g_mainApp fyne.App
+
 var g_mainWindow fyne.Window
 
 func Start() {
@@ -27,28 +29,9 @@ func Start() {
 
 func APPMain() {
 	g_mainApp = app.New()
-	g_mainWindow = g_mainApp.NewWindow("Hello, i am MHDict!")
-	// 创建按钮
-	//button1 := widget.NewButton("按钮1", func() {
-	//	// 处理按钮1的点击事件
-	//})
-	//button2 := widget.NewButton("按钮2", func() {
-	//	// 处理按钮2的点击事件
-	//})
-	//
-	//widget.NewMenu(
-	//	widget.Menu{})
-	// 创建下拉菜单
-	//menu := widget.NewMenu(
-	//	widget.NewMenuItem("菜单项1", func() {
-	//		// 处理菜单项1的点击事件
-	//	}),
-	//	widget.NewMenuItem("菜单项2", func() {
-	//		// 处理菜单项2的点击事件
-	//	}),
-	//)
+	g_mainWindow = g_mainApp.NewWindow("我是火车王")
 
-	menuItem1 := fyne.NewMenuItem("c1", func() {
+	menuItem1 := fyne.NewMenuItem("关于MHDict", func() {
 		// 处理菜单项1的点击事件
 	})
 
@@ -91,14 +74,14 @@ func APPMain() {
 		}),
 	)
 
-	content := fyne.NewContainerWithLayout(
+	content := container.New(
 		layout.NewBorderLayout(toolbar, nil, nil, nil),
-		toolbar, widget.NewLabel(`Lorem ipsum dolor, 
+		toolbar, widget.NewLabel(`Lorem ipsum dolor,
 		sit amet consectetur adipisicing elit.
-    	Quidem consectetur ipsam nesciunt,
+   	Quidem consectetur ipsam nesciunt,
 		quasi sint expedita minus aut,
-    	porro iusto magnam ducimus voluptates cum vitae.
-    	Vero adipisci earum iure consequatur quidem.`),
+   	porro iusto magnam ducimus voluptates cum vitae.
+   	Vero adipisci earum iure consequatur quidem.`),
 		m,
 	)
 	g_mainWindow.SetContent(content)

@@ -8,5 +8,6 @@
 go mod init MHDict
 go mod tidy
 go get fyne.io/fyne/v2
+go get -u github.com/flopp/go-findfont
 ```
 
