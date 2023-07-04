@@ -2,7 +2,7 @@ package main
 
 import (
 	//"fmt"
-	"mygo/src/broswer"
+	"MHDict/src/broswer"
 )
 
 func main() {

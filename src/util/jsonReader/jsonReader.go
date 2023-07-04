@@ -5,8 +5,8 @@ import (
 	"errors"
 	"io/ioutil"
 	"log"
-	"mygo/src/util/configStruct"
-	"mygo/src/util/equipStruct"
+	"MHDict/src/util/configStruct"
+	"MHDict/src/util/equipStruct"
 	"os"
 )
 

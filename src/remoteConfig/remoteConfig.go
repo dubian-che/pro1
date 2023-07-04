@@ -2,9 +2,9 @@ package remoteConfig
 
 import (
 	"fmt"
-	"mygo/src/util/configStruct"
-	"mygo/src/util/httpUtil"
-	"mygo/src/util/jsonReader"
+	"MHDict/src/util/configStruct"
+	"MHDict/src/util/httpUtil"
+	"MHDict/src/util/jsonReader"
 )
 
 var globalConfig string

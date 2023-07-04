@@ -2,8 +2,8 @@ package gameData
 
 import (
 	"fmt"
-	"mygo/src/util/equipStruct"
-	"mygo/src/util/jsonReader"
+	"MHDict/src/util/equipStruct"
+	"MHDict/src/util/jsonReader"
 	"strconv"
 	"strings"
 )
