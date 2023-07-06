@@ -1,6 +1,7 @@
 package broswer
 
 import (
+	"MHDict/resource"
 	"MHDict/src/util/tools"
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/canvas"
@@ -10,7 +11,7 @@ import (
 
 func welcomeContainer(w fyne.Window) fyne.CanvasObject {
 	//g_mainApp = app.New()
-	logo := canvas.NewImageFromFile("resource/mhdict1.jpg")
+	logo := resource.Img_welcome1
 	logo.Translucency = 0.8
 	//logo := canvas.NewImageFromResource(data.FyneScene)
 	logo.FillMode = canvas.ImageFillContain

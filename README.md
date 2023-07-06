@@ -11,6 +11,7 @@ go get fyne.io/fyne/v2
 go get github.com/flopp/go-findfont
 go install fyne.io/fyne/v2/cmd/fyne@latest
 fyne bundle resource/STKaiti.ttf >> bundle.go
+go build -ldflags "-s -w -H=windowsgui" .\main.go
 
 #macOS
 fyne package -os darwin -icon myapp.png

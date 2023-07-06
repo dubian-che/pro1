@@ -2,6 +2,7 @@ package main
 
 import (
 	"MHDict/src/broswer"
+	"MHDict/src/logic"
 	"fmt"
 	"github.com/flopp/go-findfont"
 	"os"
@@ -32,8 +33,9 @@ func initMain() {
 func main() {
 	//jsonReader.JsonReaderOnFile("test.json")
 	//initMain()
-
+	go logic.LogicStart()
 	broswer.Start()
 	//httpUtil.Test()
-	fmt.Println("hello")
+	logic.LogicEnd()
+
 }
