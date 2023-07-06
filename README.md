@@ -8,6 +8,14 @@
 go mod init MHDict
 go mod tidy
 go get fyne.io/fyne/v2
-go get -u github.com/flopp/go-findfont
+go get github.com/flopp/go-findfont
+go install fyne.io/fyne/v2/cmd/fyne@latest
+fyne bundle resource/STKaiti.ttf >> bundle.go
+
+#macOS
+fyne package -os darwin -icon myapp.png
+#linux 和 Windows
+fyne package -os linux -icon myapp.png
+fyne package -os windows -icon myapp.png
 ```
 
