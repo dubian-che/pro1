@@ -7,12 +7,11 @@ import (
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/canvas"
 	"fyne.io/fyne/v2/container"
+	"fyne.io/fyne/v2/data/binding"
 	"fyne.io/fyne/v2/layout"
 	"fyne.io/fyne/v2/theme"
 	"fyne.io/fyne/v2/widget"
-	"image/color"
 	"log"
-	"strconv"
 )
 
 func init() {
@@ -22,47 +21,103 @@ func init() {
 }
 
 var (
-	g_skillSelected map[string]uint
+	g_skillSelected   map[string]uint
+	g_selectedContail *fyne.Container
 )
 
 func ChangeSkillSelected(skill string, add bool) {
 	if add {
 		g_skillSelected[skill]++
+		fmt.Println("+++")
 	} else {
 		v, ok := g_skillSelected[skill]
 		if !ok || v == 0 {
 			return
 		}
 		g_skillSelected[skill]--
+		fmt.Println("---")
 	}
-
-	g_mainWindow.SetContent(split)
+	RefreshSelectedContain()
+	//g_skillSelected.refresh()
+	fmt.Println(skill)
+	g_selectedContail.Refresh()
 }
 
-func SkillSelectedContain() fyne.CanvasObject {
-	//f := make([]fyne.CanvasObject, 0)
-	c := container.NewVBox()
-	for skill, level := range g_skillSelected {
-		//f := container.NewHBox(widget.NewButton("+", func(){})), canvas.NewText(skill + level, color.Black), widget.NewButton("-", func(){}))
-		f := container.NewHBox(widget.NewButton("-", func() {
-			ChangeSkillSelected(skill, true)
-		}), canvas.NewText(skill+strconv.Itoa(int(level)), color.Black), widget.NewButton("+", func() {
-			ChangeSkillSelected(skill, false)
-		}))
-		c.Add(f)
-	}
+func mainContainerFunc(_ fyne.Window) fyne.CanvasObject {
+	item := container.NewVBox(widget.NewSeparator(), widget.NewSeparator())
 
-	return c
+	dataList := binding.BindIntList(&[]int{0, 1, 2})
+
+	button := widget.NewButton("Append", func() {
+		dataList.Append(int(dataList.Length() + 1))
+	})
+
+	list := widget.NewListWithData(dataList,
+		func() fyne.CanvasObject {
+			return container.NewBorder(nil, nil, widget.NewButton("-", nil), widget.NewButton("+", nil),
+				widget.NewLabel("item 1"))
+		},
+		func(item binding.DataItem, obj fyne.CanvasObject) {
+			f := item.(binding.Int)
+			text := obj.(*fyne.Container).Objects[0].(*widget.Label)
+			text.Bind(binding.IntToStringWithFormat(f, "item %d"))
+
+			btn1 := obj.(*fyne.Container).Objects[1].(*widget.Button)
+			btn2 := obj.(*fyne.Container).Objects[2].(*widget.Button)
+			btn1.OnTapped = func() {
+				val, _ := f.Get()
+				fmt.Println(val)
+				_ = f.Set(val - 1)
+			}
+			btn2.OnTapped = func() {
+				val, _ := f.Get()
+				fmt.Println(val)
+				_ = f.Set(val + 1)
+			}
+		})
+
+	//list.Resize(fyne.NewSize(400, 400))
+	listPanel := container.NewBorder(button, nil, nil, nil, list)
+	content := fyne.NewContainerWithLayout(
+		layout.NewCenterLayout(),
+		listPanel,
+	)
+	//listPanel.Resize(fyne.NewSize(400, 400))
+	return container.NewBorder(item, nil, nil, nil, container.NewGridWithColumns(5, content))
+}
+
+func RefreshSelectedContain() {
+	g_selectedContail = container.NewVBox()
+	//for skill, level := range g_skillSelected {
+	//	sk := skill
+	//	//f := container.NewHBox(widget.NewButton("+", func(){})), canvas.NewText(skill + level, color.Black), widget.NewButton("-", func(){}))
+	//	f := container.NewHBox(
+	//		widget.NewButton("-", func() {
+	//			ChangeSkillSelected(sk, false)
+	//		}), canvas.NewText(sk+strconv.Itoa(int(level)), color.Black),
+	//		widget.NewButton("+", func() {
+	//			ChangeSkillSelected(sk, true)
+	//		}))
+	//	g_selectedContail.Add(f)
+	//}
+}
+
+func skillSelectedContain() fyne.CanvasObject {
+	//f := make([]fyne.CanvasObject, 0)
+
+	RefreshSelectedContain()
+	return g_selectedContail
 }
 
 func mainContain() fyne.CanvasObject {
 	provinceSelect := widget.NewSelect([]string{"anhui", "zhejiang", "shanghai"}, func(value string) {
 		fmt.Println("province:", value)
 	})
-	return container.NewVBox(provinceSelect, SkillSelectedContain())
+	RefreshSelectedContain()
+	return container.NewVBox(provinceSelect, g_selectedContail)
 }
 
-func mainContainerFunc(w fyne.Window) fyne.CanvasObject {
+func mainContainerFunc1(w fyne.Window) fyne.CanvasObject {
 	//g_mainApp = app.New()
 	logoImg := resource.Img_mainWindow1
 	logoImg.Translucency = 0.5
